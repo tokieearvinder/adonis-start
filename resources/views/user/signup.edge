@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+
+    <title>Signup</title>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center mt-4">Signup Form</h2>
+            <form action="{{route('UserController.saveUsers')}}" method="POST">
+                {{ csrfField() }}
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Full Name</label>
+                <input type="text" class="form-control" name="fullName" value="{{ old('fullName', '') }}"  placeholder="Enter Name">
+                    {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('fullName'), hasErrorFor('fullName')) }}
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Phone</label>
+                      <input type="text" class="form-control" name="mobile" value="{{ old('mobile', '') }}"  placeholder="Enter Phone">
+                      {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
+                    </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" name="email" value="{{ old('email', '') }}"  placeholder="Enter Email">
+                          {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" name = "password" value="{{ old('password', '') }}" placeholder="Enter Password">
+                          {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+                        </div>
+        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+            </div>
+
+</body>
+</html>
