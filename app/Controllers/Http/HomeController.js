@@ -7,7 +7,6 @@ class HomeController {
 
 
     async createTodo({ request, response, session }) {
-        console.log('storeData hit')
 
         const data = request.all();
 
@@ -22,14 +21,11 @@ class HomeController {
         const validation = await validate(data, rules, messages)
 
         if (validation.fails()) {
-            // console.log('validation message',validation.messages())
             session
                 .withErrors([{ field: 'text', message: 'Error message' }])
                 .flashAll()
             return response.redirect('/');
-            // return response.redirect('back')
         } else {
-            console.log('body data', data)
             const saveQuery = new Home(data);
             await saveQuery.save();
             session.flash({ notification: 'Entry Create Successfully' })
@@ -39,12 +35,8 @@ class HomeController {
 
     }
 
-    
     async TodoList({ view, auth }) {
-
-        // console.log('auth user', await auth.getUser());
         let dummyData = await Home.find();
-        console.log('taskUser', dummyData)
         return view.render('home', {
             dummyData
         })
@@ -52,33 +44,24 @@ class HomeController {
     }
 
     async deleteEntry({ response, params, session }) {
-        // const { _id } = params;
-        console.log('paramss id', params._id);
         const checkQuery = await Home.findOne({ _id: params._id });
-        console.log('entry found', checkQuery);
         if (checkQuery) {
-            console.log('entry not found')
             const removeEntry = await Home.remove({ _id: checkQuery._id });
             session.flash({ deleteEntry: 'Entry Deleted Successfully' })
             return response.redirect('/');
         } else {
-            console.log('no entry found')
+            session.flash({ deleteEntry: 'Entry Was  Not Found' })
+            return response.redirect('/');
         }
     }
 
     async editEntry({ view, response, params }) {
 
-        console.log('id params', params._id);
-
         const checkEntry = await Home.findOne({ _id: params._id });
 
         if (checkEntry) {
-            console.log('entry is here', checkEntry);
-            // console.log('entry check', checkEntry);
-
             return view.render('edit-list', { checkEntry })
         } else {
-            console.log('entry not here');
             return response.redirect('/')
         }
 
@@ -87,17 +70,13 @@ class HomeController {
 
 
     async updateList({ response, request, params, view }) {
-        console.log('parameter', params._id)
         const checkEntry = await Home.findOne({ _id: params._id });
 
         if (checkEntry) {
-            console.log('entry is here', checkEntry);
-
             checkEntry.text = request.all().text;
             await checkEntry.save();
             return response.redirect('/')
         } else {
-            console.log('entry not here');
             return response.redirect('/')
         }
     }
