@@ -43,6 +43,8 @@ class HomeController {
 
     }
 
+    
+
     async deleteEntry({ response, params, session }) {
         const checkQuery = await Home.findOne({ _id: params._id });
         if (checkQuery) {
