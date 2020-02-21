@@ -1,0 +1,68 @@
+@layout('layout/app')
+
+
+@section('title')
+Dashboard
+@endsection
+
+@section('content')
+
+<h2 class="text-center pt-3">Dashboard</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 float-right">
+  @loggedIn
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item active ">
+        <a class="nav-link" href="{{ route('/') }}">Dasboard <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active ">
+        <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+  @else
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item active ">
+        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">SignUp</a>
+      </li>
+    </ul>
+  </div>
+  @endloggedIn
+</nav>
+@if(flashMessage('notification'))
+<span class="text-info mt-5">{{ flashMessage('notification') }}</span>
+@endif
+@if(flashMessage('findTodo'))
+<span class="text-danger mt-5">{{ flashMessage('findTodo') }}</span>
+@endif
+
+<form action="{{ route('TodoController.createTodo')  }}" method="POST">
+  <div class="form-group">
+
+    <input type="text" name="text" class="form-control" placeholder="Create Todo ..." autofocus>
+    {{ elIf('<span class ="text-danger pt-5">$self</span>', getErrorFor('text'), hasErrorFor('text')) }}
+  </div>
+</form>
+
+<div class="card">
+  <div class="card-header text-center">
+    My List
+  </div>
+  <ul class="list-group list-group-flush">
+    @each(data in listData)
+    <li class="list-group-item">
+      {{data.text}}
+      <a href="{{ route('TodoController.deleteTodo',{_id:(data._id).toString()}) }}"
+        class="badge badge-info float-right">Delete</a>
+      <a href="{{ route('TodoController.editTodo',{_id:(data._id).toString()}) }}"
+        class="badge badge-danger float-right mr-2">Edit</a>
+    </li>
+    @endeach
+  </ul>
+</div>
+
+@endsection

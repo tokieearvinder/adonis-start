@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -14,26 +14,38 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
+const Route = use("Route");
 
-// Route.on('/').render('welcome')
-Route.on('/signup').render('user.signup')
-Route.on('/login') .render('user.login');
+Route.on("/").render("index");
+Route.on("/signup")
+  .render("user.signup")
+  .middleware("CheckUserAuthenticated");
+Route.on("/login")
+  .render("user.login")
+  .middleware("CheckUserAuthenticated");
 
-Route.get('/logout',
-async ({response,auth}) =>{
-        await auth.logout();
-        return response.redirect('/');
-})
-Route.get('/','HomeController.TodoList')
-Route.get('/todo/delete/:_id','HomeController.deleteEntry')
-Route.get('/todo/edit/:_id','HomeController.editEntry')
+Route.get("/logout", async ({ response, auth }) => {
+  await auth.logout();
+  return response.redirect("/login");
+});
+Route.get("/dashboard", "TodoController.todoList").middleware("auth");
+Route.get("/todo/delete/:_id", "TodoController.deleteTodo").middleware(
+  "findTodo"
+);
+Route.get("/todo/edit/:_id", "TodoController.editTodo").middleware("findTodo");
 
-Route.post('/signsUp', 'UserController.saveUsers');
-Route.post('/login', 'UserController.loginUser');
-Route.post('/todo/update/:_id','HomeController.updateList')
-Route.post('/', 'HomeController.createTodo');
-
+Route.post("/signsUp", "UserController.saveUsers")
+  .validator("createUser")
+  .middleware("CheckUserAuthenticated");
+Route.post("/login", "UserController.loginUser")
+  .validator("loginUser")
+  .middleware("CheckUserAuthenticated");
+Route.post("/todo/update/:_id", "TodoController.updateTodo")
+  .validator("editTodos")
+  .middleware("findTodo");
+Route.post("/dashboard", "TodoController.createTodo")
+  .validator("saveTodos")
+  .middleware("auth");
 
 // Route.get('/home',({request,response,view}) =>{
 //     return view.render('home',{

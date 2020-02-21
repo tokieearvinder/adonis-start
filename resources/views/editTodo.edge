@@ -1,0 +1,19 @@
+@layout('layout/app')
+
+@section('title')
+Edit Todo
+@endsection
+
+@section('content')
+
+<h2 class="text-center pt-3">Edit Todo</h2>
+<form action="{{ route ('TodoController.updateTodo',{_id:(checkEntry._id).toString()})}}" method="POST">
+      <div class="form-group">
+            <input type="text" name="text" class="form-control" value="{{checkEntry.text}}"
+                  placeholder="Create Todo ..." autofocus>
+            {{ elIf('<span class ="text-danger pt-5">$self</span>', getErrorFor('text'), hasErrorFor('text')) }}
+
+      </div>
+</form>
+
+@endsection
