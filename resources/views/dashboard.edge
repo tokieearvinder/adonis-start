@@ -13,14 +13,15 @@ Dashboard
   <div class="collapse navbar-collapse " id="navbarSupportedContent">
     <ul class="navbar-nav">
       @if(!profile)
-        <li class="nav-item active ">
-          <img src=" https://via.placeholder.com/150/808080 ?Text=No Image Found
+      <li class="nav-item active ">
+        <img src=" https://via.placeholder.com/150/808080 ?Text=No Image Found
 
-          C/O https://placeholder.com/ " class="rounded-circle" width="50px" height="50px" alt="no image"/>
-        </li>
+          C/O https://placeholder.com/ " class="rounded-circle" width="50px" height="50px" alt="no image" />
+      </li>
       @endif
       <li class="nav-item active ">
-        <img src="{{ assetsUrl('uploads/image/' + profile) }}" class="rounded-circle" width="50px" height="50px" alt="{{name}}"/>
+        <img src="{{ assetsUrl('uploads/image/' + profile) }}" class="rounded-circle" width="50px" height="50px"
+          alt="{{name}}" />
       </li>
       <li class="nav-item active ">
         <a class="nav-link" href="{{ route('/') }}"> {{name}} <span class="sr-only">(current)</span></a>
@@ -53,7 +54,7 @@ Dashboard
 <form action="{{ route('TodoController.createTodo')  }}" method="POST">
   <div class="form-group">
     {{ csrfField() }}
-        <input type="text" name="text" class="form-control" placeholder="Create Todo ..." autofocus>
+    <input type="text" name="text" class="form-control" placeholder="Create Todo ..." autofocus>
     {{ elIf('<span class ="text-danger pt-5">$self</span>', getErrorFor('text'), hasErrorFor('text')) }}
   </div>
 </form>
