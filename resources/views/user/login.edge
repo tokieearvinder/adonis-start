@@ -14,6 +14,7 @@ Login
 <span class="dabger text-danger mt-5">{{ flashMessage('passwordMismatch') }}</span>
 @endif
 <form action="{{route('UserController.loginUser')}}" method="POST">
+  {{ csrfField() }}
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="text" class="form-control" autofocus name="email" value="{{ old('email', '') }}"

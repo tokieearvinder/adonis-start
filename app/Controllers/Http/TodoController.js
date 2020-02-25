@@ -1,6 +1,7 @@
 "use strict";
 
 const Todo = use("App/Models/Todo");
+const User = use("App/Models/Users");
 
 class TodoController {
   // This function are used for create todo list
@@ -14,12 +15,17 @@ class TodoController {
     return response.redirect("/dashboard");
   }
 
-  // This function are used for getting a list of todos
+  // This function are used for getting todos l
 
   async todoList({ view, auth }) {
-    let listData = await Todo.find({ user_id: auth.user._id });
+    let listData = await Todo.find({ user_id: auth.user._id }).populate(
+      "user_id",
+      "fullName profile_pics"
+    );
     return view.render("dashboard", {
-      listData
+      listData,
+      name: auth.user.fullName,
+      profile: auth.user.profile_pics
     });
   }
 

@@ -8,7 +8,9 @@ class createUser {
       fullName: "required",
       mobile: "required",
       email: "required|unique:users",
-      password: "required|min:8"
+      password: "required|min:8",
+      profile_pics:'required|file_ext:png,jpg|file_size:2mb|file_types:image'
+
     };
   }
 
@@ -21,7 +23,11 @@ class createUser {
       "mobile.required": "Please Provide Input",
       "fullName.required": "Please Provide input",
       "password.required": "Please Provide input",
-      "password.min": "Please Provide min length"
+      "password.min": "Please Provide min length",
+      "profile_pics.required": "Please Provide image file",
+      "profile_pics.file_ext": "file extention should be png or jpg",
+      "profile_pics.file_size": "file size not more the 2 mb",
+      "profile_pics.file_types": "It should be valid file"
     };
   }
 

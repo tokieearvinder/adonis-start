@@ -43,6 +43,8 @@ const namedMiddleware = {
   CheckUserAuthenticated: "App/Middleware/CheckUserAuthenticated",
 
   findTodo: "App/Middleware/FindTodo",
+  
+  checkProfile : 'App/Middleware/CheckProfile',
 
   guest: "Adonis/Middleware/AllowGuestOnly"
 };
@@ -57,7 +59,9 @@ const namedMiddleware = {
 | control over request lifecycle.
 |
 */
-const serverMiddleware = ["Adonis/Middleware/Static", "Adonis/Middleware/Cors"];
+const serverMiddleware = [
+  "Adonis/Middleware/Static",
+   "Adonis/Middleware/Cors"];
 
 Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)

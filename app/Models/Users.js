@@ -7,7 +7,8 @@ let userSchema = mongoose.Schema(
     fullName: { type: String, default: "" },
     email: { type: String, default: "" },
     mobile: { type: String, default: "" },
-    password: { type: String, default: "" }
+    password: { type: String, default: "" },
+    profile_pics: { type: String, default: "" }
   },
   {
     timestamps: true
