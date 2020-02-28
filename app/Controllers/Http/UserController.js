@@ -5,7 +5,7 @@ const Helpers = use("Helpers");
 // const removeFile = Helpers.promisify(fs.unlink);
 
 class UserController {
-  // This function are used for signup user
+  // This function are used for signup user with profile image 
 
   async saveUsers({ request, response, view, auth }) {
     const finalArray = [];
