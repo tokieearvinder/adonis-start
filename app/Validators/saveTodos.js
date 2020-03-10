@@ -12,7 +12,7 @@ class saveTodos {
 
   get messages() {
     return {
-      "text.required": "Please Provide input"
+      "required":"The {{ field }} is required",
     };
   }
   // This function handle failure for validation check

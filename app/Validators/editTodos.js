@@ -13,7 +13,7 @@ class editTodos {
 
   get messages() {
     return {
-      "text.required": "Please Provide input"
+      "required": "The {{ field }} is required"
     };
   }
 

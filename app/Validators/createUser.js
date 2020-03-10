@@ -18,13 +18,8 @@ class createUser {
 
   get messages() {
     return {
-      "email.required": "Please Provide input",
-      "email.min": "Please Provide min lenght",
-      "mobile.required": "Please Provide Input",
-      "fullName.required": "Please Provide input",
-      "password.required": "Please Provide input",
-      "password.min": "Please Provide min length",
-      "profile_pics.required": "Please Provide image file",
+      "required":"The {{ field }} is required",
+      "min": "please provide min length {{ field }}",
       "profile_pics.file_ext": "file extention should be png or jpg",
       "profile_pics.file_size": "file size not more the 2 mb",
       "profile_pics.file_types": "It should be valid file"

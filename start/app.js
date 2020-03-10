@@ -21,7 +21,9 @@ const providers = [
   "@adonisjs/auth/providers/AuthProvider",
   "@adonisjs/validator/providers/ValidatorProvider",
   "adonis-4-mongoose/provider/Mongoose",
+  '@adonisjs/mail/providers/MailProvider',
   "lucid-mongo/providers/LucidMongoProvider"
+
 ];
 
 /*

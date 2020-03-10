@@ -2,10 +2,12 @@
 const User = use("App/Models/Users");
 const Encryption = use("Encryption");
 const Helpers = use("Helpers");
+const Mail = use("Mail");
+
 // const removeFile = Helpers.promisify(fs.unlink);
 
 class UserController {
-  // This function are used for signup user with profile image 
+  // This function are used for signup user with profile image
 
   async saveUsers({ request, response, view, auth }) {
     const finalArray = [];
@@ -20,7 +22,6 @@ class UserController {
     await profilePics.move(Helpers.publicPath("uploads/image"), {
       name: userData.profile_pics
     });
-    console.log("profile pic after rename", profilePics);
 
     if (!profilePics.moved()) {
       return profilePics.errors();
@@ -30,12 +31,19 @@ class UserController {
     const new_user = new User(userData);
     const userSave = await new_user.save();
     await auth.login(userSave);
+
+    await Mail.send("emails.welcome", userSave.toJSON(), message => {
+      message.from("arvindersinghvicky6@gmail.com");
+      message.to(userSave.email);
+      message.subject("Welcome to yardstick");
+    });
+
     return response.redirect("/dashboard");
   }
 
   // This function are used for login into app
 
-  async loginUser({ view, request, response, auth, session }) {
+  async loginUser({ request, response, auth, session }) {
     const userInfo = request.only(["email", "password"]);
     const userExist = await User.findOne({ email: userInfo.email });
     if (userExist) {
