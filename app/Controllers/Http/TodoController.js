@@ -8,33 +8,47 @@ class TodoController {
 
   async createTodo({ request, response, session, auth }) {
     const data = request.all();
-    data.user_id = auth.user._id;
-    const saveQuery = new Todo(data);
-    await saveQuery.save();
-    session.flash({ notification: "Todo Create Successfully" });
-    return response.redirect("/dashboard");
+    try {
+      data.user_id = auth.user._id;
+      const saveQuery = new Todo(data);
+      await saveQuery.save();
+      session.flash({ notification: "Todo Create Successfully" });
+      return response.redirect("/dashboard");
+    } catch (error) {
+      return response.redirect("back");
+    }
   }
 
   // This function are used for getting todos l
 
   async todoList({ view, auth }) {
-    let listData = await Todo.find({ user_id: auth.user._id }).populate(
-      "user_id",
-      "fullName profile_pics"
-    );
-    return view.render("dashboard", {
-      listData,
-      name: auth.user.fullName,
-      profile: auth.user.profile_pics
-    });
+    try {
+      let listData = await Todo.find({ user_id: auth.user._id }).populate(
+        "user_id",
+        "fullName profile_pics"
+      );
+      console.log("authUserData", auth.user.provider_id);
+      return view.render("dashboard", {
+        listData,
+        name: auth.user.fullName,
+        provider_id: auth.user.provider_id,
+        profile: auth.user.profile_pics
+      });
+    } catch (error) {
+      return response.redirect("back");
+    }
   }
 
   // This function are used for delete todo with todo Id
 
   async deleteTodo({ response, session, request }) {
-    await Todo.remove({ _id: request.checkEntry._id });
-    session.flash({ findTodo: "Todo Deleted Successfully" });
-    return response.redirect("/dashboard");
+    try {
+      await Todo.remove({ _id: request.checkEntry._id });
+      session.flash({ findTodo: "Todo Deleted Successfully" });
+      return response.redirect("/dashboard");
+    } catch (error) {
+      return response.redirect("back");
+    }
   }
 
   // This function are used to find todo with todo Id
@@ -48,10 +62,15 @@ class TodoController {
 
   async updateTodo({ response, request, session }) {
     var checkEntry = request.checkEntry;
-    checkEntry.text = request.all().text;
-    await checkEntry.save();
-    session.flash({ findTodo: "Todo updated successfully" });
-    return response.redirect("/dashboard");
+
+    try {
+      checkEntry.text = request.all().text;
+      await checkEntry.save();
+      session.flash({ findTodo: "Todo updated successfully" });
+      return response.redirect("/dashboard");
+    } catch (error) {
+      return response.redirect("back");
+    }
   }
 }
 

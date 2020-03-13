@@ -6,7 +6,7 @@ Login
 
 @section('content')
 
-<h2 class="text-center mt-4">Login Form</h2>
+<h2 class="text-center mt-4 text-white">Login Form</h2>
 @if(flashMessage('userNotFound'))
 <span class="text-info mt-5">{{ flashMessage('userNotFound') }}</span>
 @endif
@@ -15,14 +15,14 @@ Login
 @endif
 <form action="{{route('UserController.loginUser')}}" method="POST">
   {{ csrfField() }}
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputEmail1">Email address</label>
     <input type="text" class="form-control" autofocus name="email" value="{{ old('email', '') }}"
       placeholder="Enter email">
     {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
 
   </div>
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" name="password" value="{{ old('password', '') }}"
       placeholder="Password">

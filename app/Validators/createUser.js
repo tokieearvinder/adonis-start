@@ -10,7 +10,6 @@ class createUser {
       email: "required|unique:users",
       password: "required|min:8",
       profile_pics:'required|file_ext:png,jpg|file_size:2mb|file_types:image'
-
     };
   }
 

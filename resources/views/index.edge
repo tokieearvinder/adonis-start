@@ -8,6 +8,46 @@ Index
 
 @section('content')
 
-<h1 class="text-center mt-4" >Welcome</h1>
-
-@endsection
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card mt-5">
+            @loggedIn
+            <div class="card-header">User Information</div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row justify-content-md-center">
+                        <div class="col col-md-12">
+                            <img src="{{ auth.user.profile_pics }}">
+                            <h2>{{ auth.user.fullName }}</h2>
+                            <h5>{{ auth.user.provider }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            @else
+            <div class="card-header font-weight-bold">Social Authentication</div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-6">
+                            <a href="{{ route('social.login', {provider: 'facebook'}) }}"
+                                class="btn btn-block btn-facebook btn-social text-center" role="button">
+                                <i class="fa fa-facebook"></i>
+                                Login With Facebook
+                            </a>
+                            <a href="{{ route('social.login', {provider: 'google'}) }}"
+                                class="btn btn-block btn-google btn-social text-center" role="button">
+                                <i class="fa fa-google"></i>
+                                Login With Google
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                @endloggedIn
+            </div>
+        </div>
+    </div>
+    @endsection

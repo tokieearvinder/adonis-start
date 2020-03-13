@@ -6,36 +6,36 @@ Sign Up
 
 @section('content')
 
-<h2 class="text-center mt-4">Signup Form</h2>
+<h2 class="text-center mt-4 text-white">Signup Form</h2>
 <form action="{{route('UserController.saveUsers')}}" method="POST" enctype="multipart/form-data">
   {{ csrfField() }}
 
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputEmail1">Full Name</label>
     <input type="text" class="form-control" name="fullName" value="{{ old('fullName', '') }}" autofocus
       placeholder="Enter Name">
     {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('fullName'), hasErrorFor('fullName')) }}
   </div>
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputEmail1">Phone</label>
     <input type="text" class="form-control" name="mobile" value="{{ old('mobile', '') }}" placeholder="Enter Phone">
     {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('mobile'), hasErrorFor('mobile')) }}
   </div>
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputEmail1">Email address</label>
     <input type="email" class="form-control" name="email" value="{{ old('email', '') }}" placeholder="Enter Email">
     {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
 
   </div>
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" name="password" value="{{ old('password', '') }}"
       placeholder="Enter Password">
     {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
   </div>
-  <div class="form-group">
+  <div class="form-group text-white">
     <label for="exampleInputEmail1">Profile</label>
-    <input type="file" name="profile_pics"  />
+    <input type="file" name="profile_pics" />
     {{ elIf('<span class ="text-danger pt-8">$self</span>', getErrorFor('profile_pics'), hasErrorFor('profile_pics')) }}
 
   </div>

@@ -20,13 +20,17 @@ Route.on("/").render("index");
 Route.on("/signup").render("user.signup").middleware("CheckUserAuthenticated");
 Route.on("/login").render("user.login").middleware("CheckUserAuthenticated");
 
-Route.get("/logout", async ({ response, auth }) => {
-  await auth.logout();
-  return response.redirect("/login");
-});
+
 Route.get("/dashboard", "TodoController.todoList").middleware("auth");
 Route.get("/todo/delete/:_id", "TodoController.deleteTodo").middleware("findTodo");
 Route.get("/todo/edit/:_id", "TodoController.editTodo").middleware("findTodo");
+
+// Route.get('login/facebook', 'UserController.redirect')
+// Route.get('facebook/callback', 'UserController.callback')
+
+Route.get('/auth/:provider', 'UserController.redirectToProvider').as('social.login')
+Route.get('/authenticated/:provider', 'UserController.handleProviderCallback').as('social.login.callback')
+Route.get('/logout', 'UserController.logout').as('logout')
 
 Route.post("/signup", "UserController.saveUsers").validator("createUser").middleware("CheckUserAuthenticated");
 Route.post("/login", "UserController.loginUser").validator("loginUser").middleware("CheckUserAuthenticated");

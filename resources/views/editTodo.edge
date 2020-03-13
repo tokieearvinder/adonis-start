@@ -6,11 +6,11 @@ Edit Todo
 
 @section('content')
 
-<h2 class="text-center pt-3">Edit Todo</h2>
+<h2 class="text-center text-white mt-5 mb-5 ">Edit Todo</h2>
 <form action="{{ route ('TodoController.updateTodo',{_id:(checkEntry._id).toString()})}}" method="POST">
       {{ csrfField() }}
       <div class="form-group">
-            <input type="text" name="text" class="form-control" value="{{checkEntry.text}}"
+            <input type="text" name="text" class="form-control font-weight-bold" value="{{checkEntry.text}}"
                   placeholder="Create Todo ..." autofocus>
             {{ elIf('<span class ="text-danger pt-5">$self</span>', getErrorFor('text'), hasErrorFor('text')) }}
 

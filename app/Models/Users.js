@@ -8,7 +8,9 @@ let userSchema = mongoose.Schema(
     email: { type: String, default: "" },
     mobile: { type: String, default: "" },
     password: { type: String, default: "" },
-    profile_pics: { type: String, default: "" }
+    profile_pics: { type: String, default: "" },
+    provider_id: { type: String, default: "" },
+    provider: { type: String, default: "" }
   },
   {
     timestamps: true
